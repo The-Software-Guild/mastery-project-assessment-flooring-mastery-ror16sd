@@ -77,7 +77,9 @@ public class Order {
         BigDecimal material = getMaterialCost();
         BigDecimal labor = getLaborCost();
         BigDecimal taxRate = getTaxRate();
-        return (material.multiply(labor)).multiply(taxRate.divide(new BigDecimal(100))).setScale(2, RoundingMode.FLOOR);
+        BigDecimal tax1 = material.add(labor);
+        BigDecimal tax2 = taxRate.divide(new BigDecimal(100),RoundingMode.FLOOR).setScale(2,RoundingMode.FLOOR);
+        return tax1.multiply(tax2).setScale(2,RoundingMode.FLOOR);
     }
 
     public BigDecimal getTotal(){

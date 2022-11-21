@@ -323,6 +323,17 @@ public class FlooringDaoFileImpl implements FlooringDao{
     }
 
     public void exportAllData() throws FlooringPersistenceException{
+        PrintWriter out;
+        //clear order file to write updated export of all data
+        try {
+            out = new PrintWriter(new FileWriter("Backup/DataExport.txt"));
+        } catch(IOException e) {
+            throw new FlooringPersistenceException("Could not clear backup file", e);
+        }
+        out.flush();
+        out.close();
+
+
         File folder = new File("Orders");
         File[] listOfFiles = folder.listFiles();
         List<String> fileDates = new ArrayList<String>();
